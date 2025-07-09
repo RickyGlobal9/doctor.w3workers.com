@@ -1,0 +1,388 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block');
+
+.material-symbols-outlined {
+    font-weight: 400;
+    font-variation-settings: "FILL" 0, "GRAD" 0, "opsz" 100;
+}
+
+.dt-paging {
+    padding: 10px 10px 0;
+    text-align: center;
+}
+
+.dt-paging button {
+    margin: 2px;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    background-color: #3f51b5;
+    color: #fff;
+    cursor: pointer;
+}
+
+.dt-paging button:hover {
+    opacity: 0.60;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #f9f9f9;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: "Roboto", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+h3 {
+    font-size: 2.46vh;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+#welcome {
+    text-transform: capitalize;
+}
+
+.breadcrump span {
+    text-transform: capitalize;
+}
+
+.w3-container {
+    padding: 0 10px !important;
+}
+
+.header .w3-padding-small {
+    padding: 0 6px !important;
+}
+
+.close {
+    position: absolute;
+    top: 8px;
+    right: 6px;
+    cursor: pointer;
+    min-height: auto !important;
+}
+
+.logo img {
+    max-height: 50px;
+}
+
+.logo h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+#spinner {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1003;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.spin_container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spin_container .w3-light-grey {
+    padding: 10px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: solid 3px;
+    border-color: #ddd;
+    border-left-color: #3f51b5 !important;
+    border-radius: 50%;
+    font-size: 50px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.pop {
+    display: none;
+}
+
+.w3-modal-content header {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.w3-button {
+    transition: 0.05s;
+    padding-left: 26px;
+    padding-right: 26px;
+}
+
+.tp {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.tp:hover {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+}
+
+header .w3-button {
+    height: auto;
+}
+
+label {
+    font-size: 16px;
+}
+
+.w3-input,
+.w3-button {
+    min-height: 45px;
+}
+
+.w3-input {
+    margin-top: 5px;
+    resize: none;
+    outline: none;
+    border: none;
+    padding: 12px 16px;
+    transition: 0.5s;
+    border-color: #e1e1e1 !important;
+    background-color: #fbfbfb;
+}
+
+.w3-input:focus {
+    border-color: #3f51b5 !important;
+}
+
+.w3-responsive {
+    background-color: #fff;
+}
+
+.w3-table {
+    color: #333;
+    border-color: #ddd !important;
+}
+
+.w3-table tbody tr:hover {
+    background-color: #fbfbfb;
+}
+
+.w3-table td {
+    vertical-align: middle;
+}
+
+.w3-table td:last-child {
+    padding-right: 18px
+}
+
+.w3-table thead tr {
+    font-weight: 400;
+}
+
+.w3-table thead td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.w3-table .w3-button {
+    min-height: 30px !important;
+}
+
+.w3-card-2 {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1), 0 2px 10px 0 rgba(0, 0, 0, 0.06) !important;
+}
+
+.menu_active {
+    position: relative;
+    z-index: 1001;
+    background-color: rgba(255, 255, 255, 0.75);
+    color: #3f51b5;
+}
+
+.w3-sidebar {
+    width: 230px;
+    transition: 0.15s;
+}
+
+.w3-sidebar h3 {
+    padding: 0 16px;
+    font-size: 18px !important;
+}
+
+.w3-sidebar h3 {
+    padding: 0 16px;
+}
+
+.w3-sidebar .w3-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: 0.05s;
+}
+
+.w3-sidebar a span {
+    float: left;
+    margin: 0 6px 0 0;
+    height: 30px;
+    font-size: 16px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.w3-sidebar a span:first-child {
+    width: 30px;
+    font-size: 26px;
+}
+
+#menu {
+    margin: 16px 16px 16px 0 !important;
+    width: 40px;
+    height: 40px;
+    float: left;
+    border: none;
+    display: none;
+    cursor: pointer;
+}
+
+.header a {
+    text-decoration: none;
+}
+
+.header span {
+    float: left;
+}
+
+.header span:first-child {
+    margin: 2px 5px 0 0;
+}
+
+#menu span {
+    margin: 0 0 0 -2px;
+    font-size: 32px !important;
+}
+
+.container {
+    margin-left: 230px;
+    height: auto;
+    overflow: auto;
+    transition: 0.05s;
+    min-height: calc(100vh - 60px);
+}
+
+.nowrap {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mask {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.h4 .w3-button,
+.close {
+    padding: 2px !important;
+}
+
+.login-pane {
+    width: 400px;
+}
+
+.footer {
+    height: 60px;
+    padding: 16px 0 !important;
+    /* position: absolute; */
+    bottom: 0;
+}
+
+.w3-table .w3-button {
+    padding: 2px 5px !important;
+}
+
+@media screen and (max-width: 1024px) {
+    .notification {
+        min-width: calc(100% - 32px);
+        width: calc(100% - 32px) !important;
+        position: fixed;
+        left: 16px;
+        bottom: 0;
+    }
+
+    #signout {
+        margin: 23px 0 0 !important;
+    }
+
+    .header p {
+        margin: 0 0 16px;
+    }
+
+    .header h3 {
+        padding: 6px 0;
+    }
+
+    .header h4 {
+        margin-top: 25px;
+    }
+
+    #menu {
+        display: block;
+    }
+
+    .w3-sidebar {
+        left: -250px;
+    }
+
+    .container {
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .login-pane {
+        width: 368px;
+    }
+}

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../../imgs/logo.png">
+    <title>
+        <%=title%>
+    </title>
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/dash.css">
+</head>
+
+<body>
+    <div id="sidebar" class="w3-sidebar w3-bar-block w3-card-2 w3-indigo">
+        <div class="w3-padding-small w3-padding">
+            <div class="w3-center logo">
+                <img src="/imgs/logo.png" alt="">
+                <h2 class="w3-text-white">
+                    <%=title%>
+                </h2>
+            </div>
+        </div>
+
+        <a href="/admin" class="w3-bar-item w3-button w3-hover-light-grey">
+            <span class="material-symbols-outlined">space_dashboard</span>
+            <span>Dashboard</span>
+        </a>
+        <a href="/admin/users" class="w3-bar-item w3-button w3-hover-light-grey">
+            <span class="material-symbols-outlined">group</span>
+            <span>List Users</span>
+        </a>
+        <a href="/admin/add-user" class="w3-bar-item w3-button w3-hover-light-grey menu_active">
+            <span class="material-symbols-outlined">person_add</span>
+            <span>Add User</span>
+        </a>
+        <a href="/admin/users" class="w3-bar-item w3-button w3-hover-light-grey">
+            <span class="material-symbols-outlined">person_remove</span>
+            <span>Remove User</span>
+        </a>
+        <a href="/admin/settings" class="w3-bar-item w3-button w3-hover-light-grey">
+            <span class="material-symbols-outlined">settings</span>
+            <span>Settings</span>
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="w3-white w3-card-2 w3-border-bottom header">
+            <div class="w3-container">
+                <div class="w3-row">
+                    <div class="w3-col w3-padding-small">
+                        <button id="menu" class="w3-indigo w3-margin-left w3-card-2 w3-round">
+                            <span class="material-symbols-outlined">menu</span>
+                        </button>
+
+                        <h3 id="main_logo" class="w3-left w3-margin-top w3-large">
+                            <span id="welcome"></span>
+                        </h3>
+                        <a id="signout" href="#" class="w3-right w3-margin w3-large">
+                            <span class="material-symbols-outlined">logout</span>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div class="w3-container w3-padding-16">
+            <div class="w3-row">
+                <h3 class="w3-padding-small w3-margin-top breadcrump"><span>Admin</span> / <span>
+                        <%=page%>
+                    </span>
+                </h3>
+            </div>
+
+            <div class="w3-row">
+                <div class="w3-col w3-margin-top w3-margin-bottom">
+                    <div class="w3-col w3-padding-small">
+                        <div class="w3-col w3-white w3-round w3-card-2 w3-margin-top">
+                            <h3 class="w3-padding w3-margin-top">User Detail</h3>
+
+                            <form id="frm1" method="post" action="/adduser" class="w3-col w3-padding">
+                                <div class="w3-col w3-padding-small w3-margin-bottom">
+                                    <div class="w3-col l6 m6 w3-padding-small w3-margin-bottom">
+                                        <label for="">First name</label>
+                                        <input name="fname" type="text" class="w3-input w3-round w3-padding w3-border"
+                                            placeholder="First name" required>
+                                    </div>
+                                    <div class="w3-col l6 m6 w3-padding-small w3-margin-bottom">
+                                        <label for="">Last name</label>
+                                        <input name="lname" type="text" class="w3-input w3-round w3-padding w3-border"
+                                            placeholder="Last name" required>
+                                    </div>
+
+                                    <div class="w3-col l6 m6 w3-padding-small w3-margin-bottom">
+                                        <label for="">Email address</label>
+                                        <input name="email" type="email" class="w3-input w3-round w3-padding w3-border"
+                                            placeholder="user@w3workers.com" required>
+                                    </div>
+                                    <div class="w3-col l6 m6 w3-padding-small w3-margin-bottom">
+                                        <label for="">Mobile number</label>
+                                        <input name="mobile" type="text" class="w3-input w3-round w3-padding w3-border"
+                                            placeholder="10 digit mobile number" minlength="10" maxlength="10" required>
+                                    </div>
+
+                                    <div class="w3-col w3-padding-small">
+                                        <label for="">Create password</label>
+                                        <input id="new_pass" name="new_pass" type="text"
+                                            class="w3-input w3-round w3-padding w3-border"
+                                            placeholder="Minimum 8 digits" minlength="8" maxlength="20" required>
+                                    </div>
+                                    <div class="w3-col w3-padding-small">
+                                        <label for="">Re-enter password</label>
+                                        <input id="repeat_pass" name="repeat_pass" type="text"
+                                            class="w3-input w3-round w3-padding w3-border"
+                                            placeholder="Minimum 8 digits" minlength="8" maxlength="20" required>
+                                    </div>
+                                </div>
+
+                                <div class="w3-col w3-padding-small w3-margin-bottom w3-center">
+                                    <p class="w3-text-grey">By clicking on create user button below you confirm that the
+                                        details provided above is correct.</p>
+                                    <button id="create_btn"
+                                        class="w3-button w3-margin-top w3-round w3-indigo w3-hover-indigo w3-hover-opacity">Create
+                                        New User</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w3-container w3-center w3-border-top w3-padding footer">Copyright <span id="cy">2025</span>, All
+        rights reserverd. <a href="https://w3workers.com" target="_search" class="w3-text-indigo">w3workers.com</a>
+    </div>
+
+    <div class="w3-modal">
+        <div class="w3-modal-content w3-animate-bottom w3-round w3-card-2 pop" style="max-width: 450px;">
+            <header class="w3-container w3-round  w3-indigo">
+                <h4 class="w3-padding">Message</h4>
+
+                <a href="#" class="w3-button w3-padding-small w3-round-xxlarge tp w3-hover-text-red close">
+                    <span class="w3-left material-symbols-outlined">close</span>
+                </a>
+            </header>
+
+            <div class="w3-container">
+                <div class="w3-col w3-padding w3-padding-16 cbody"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="spinner">
+        <div class="spin_container">
+            <span class="spinner"></span>
+        </div>
+    </div>
+    <div class="mask"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            let dt = new Date()
+            let yr = dt.getFullYear()
+            $('#cy').text(yr)
+
+            $('#menu').on('click', function () {
+                $('.mask').show()
+                $('#sidebar').css('left', '0')
+            })
+            $('.mask').on('click', function () {
+                $('.mask').hide()
+                $('#sidebar').css('left', '-250px')
+            })
+
+            $('.close').on('click', function (e) {
+                e.preventDefault()
+                $('.w3-modal, .pop').hide()
+            })
+
+            var frm1 = $('#frm1');
+            frm1.submit(function (e) {
+                e.preventDefault();
+
+                if ($('#repeat_pass').val() == $('#new_pass').val()) {
+                    $('#create_btn').attr('disabled', true).text('Please wait...')
+
+                    $.ajax({
+                        type: frm1.attr('method'),
+                        url: frm1.attr('action'),
+                        data: frm1.serialize()
+                    }).done(function (data) {
+                        $('#create_btn').attr('disabled', false).text('Create New User')
+                        console.log(data)
+                        if (data > 0) {
+                            $('.cbody').text('User added sucessfully')
+                        }
+                        else {
+                            $('.cbody').text('Oops, something went wrong. Try again later!')
+                        }
+                        $('.w3-modal, .pop').show()
+                        $('input').val('')
+                    })
+                }
+                else {
+                    $('.cbody').text('Oops, password do not match!')
+                    $('.w3-modal, .pop').show()
+                }
+            });
+
+            $('#signout').on('click', function (e) {
+                e.preventDefault()
+                $.get('/logout', (d) => {
+                    window.location.reload()
+                })
+            })
+            $('#spinner').hide()
+        });
+    </script>
+
+</body>
+
+</html>

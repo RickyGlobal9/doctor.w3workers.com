@@ -1,0 +1,32 @@
+[
+  {
+    "slno": 1,
+    "creation": "2025-07-09T17:49:03.726Z",
+    "fname": "Ricky",
+    "lname": "Malhotra",
+    "email": "ricky.global9@gmail.com",
+    "mobile": "8002068980",
+    "hash": "$2b$10$JuyTV11HKH4q/KpT9lEzAeF3vKUKRoqiqpssfVRWm48BOqDZMs/yC",
+    "status": "pending"
+  },
+  {
+    "slno": 2,
+    "creation": "2025-07-09T17:52:43.660Z",
+    "fname": "Abdul",
+    "lname": "Razique",
+    "email": "ricky.global10@gmail.com",
+    "mobile": "6201438165",
+    "hash": "$2b$10$UZNy6nlXgDchIM8czZocMuvm.4RVb7yeW1EgFWP0DknCBsHYhLqFq",
+    "status": "active"
+  },
+  {
+    "slno": 3,
+    "creation": "2025-07-09T17:53:06.276Z",
+    "fname": "Ravi",
+    "lname": "Kishan",
+    "email": "ravi@gmail.com",
+    "mobile": "4564564560",
+    "hash": "$2b$10$UZNy6nlXgDchIM8czZocMup/0.Sv7sscOclEVJFRaotkDbrk6huHK",
+    "status": "pending"
+  }
+]
