@@ -4,6 +4,9 @@ This project is developed by me as an assessment task for a company.
 ## Forgot Password Section
 I have created a custom API for OTP Generation & Verification. It's my own unofficial WhatsApp API using my personal dedicated phone number hosted at https://sms.w3workers.com.
 
+## Installation
+Before executing it on the server, be sure to install all the packages manually using:
+```bash
 ## Packages Used
 ├── axios@1.10.0
 ├── bcryptjs@3.0.2
@@ -11,15 +14,12 @@ I have created a custom API for OTP Generation & Verification. It's my own unoff
 ├── express-session@1.18.1
 └── express@5.1.0
 
-## Installation
-Before executing it on the server, be sure to install all the packages manually using:
-```bash
 npm install axios bcrypt ejs express-session express
 Or install at once using: npm install
 
 Run command: node index.js
 
-Directory Structure
+##Directory Structure
 assesment_task
 │
 ├── index.js
@@ -45,7 +45,7 @@ assesment_task
     ├── signin.ejs
     └── users.ejs
 
-Contact
+##Contact
 Drop me a mail at manage.w3workers.com if any issue occurs or any updates needed.
 
 Thanks
