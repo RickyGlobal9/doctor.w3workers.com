@@ -293,6 +293,65 @@ app.get('/getpendingusers', async (req, res) => {
     }
 });
 
+app.post('/updateuser', async (req, res) => {
+    const _SESSION = req.session;
+    if (!_SESSION.userId) {
+        console.log('Unauthorized access attempt');
+        return res.json({ error: 'Unauthorized access' });
+    }
+
+    const { slno, fname, lname, email, mobile, new_pass, status } = req.body;
+    try {
+        // Retrieves existing users
+        let users = [];
+        try {
+            const data = await fs.readFile('./user_data/users.json', 'utf8');
+            users = JSON.parse(data);
+        } catch (error) {
+            if (error.code !== 'ENOENT') throw error;
+        }
+
+        // Finds user by slno
+        const userIndex = users.findIndex(user => user.slno === parseInt(slno));
+        if (userIndex === -1) {
+            console.log('User not found', slno);
+            return res.json(0);
+        }
+
+        // Checks email uniqueness
+        if (email && email !== users[userIndex].email) {
+            const emailExists = users.some((user, index) => index !== userIndex && user.email === email);
+            if (emailExists) {
+                console.log('Email already in use', email);
+                return res.json(0);
+            }
+        }
+
+        // Updates user data
+        const updatedUser = {
+            slno: parseInt(slno),
+            creation: users[userIndex].creation,
+            fname: fname || users[userIndex].fname,
+            lname: lname || users[userIndex].lname,
+            email: email || users[userIndex].email,
+            mobile: mobile || users[userIndex].mobile,
+            hash: new_pass && new_pass.trim() ? await bcrypt.hash(new_pass, SALT) : users[userIndex].hash,
+            status: status || users[userIndex].status
+        };
+
+        // Writes back to file
+        users[userIndex] = updatedUser;
+        await fs.writeFile('./user_data/users.json', JSON.stringify(users, null, 2));
+        await logEvent({ user_id: _SESSION.userId, event: `details updated for ${email || users[userIndex].email}`, status: 'success' });
+        console.log('Updated user');
+        res.json(1);
+    } catch (error) {
+        console.error('Error updating user:', error);
+        await logEvent({ user_id: _SESSION.userId, event: `details updated for ${email}`, status: 'failure' });
+        res.json(0);
+    }
+});
+
 app.get('/removeuser', async (req, res) => {
     const _SESSION = req.session;
     if (!_SESSION.userId) {
