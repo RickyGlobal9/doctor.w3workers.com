@@ -1,262 +1,215 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('header') %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="../../imgs/logo.png">
-    <title>
-        <%=title%>
-    </title>
-    <link rel="stylesheet" href="../../css/theme.css">
-    <link rel="stylesheet" href="../../css/dash.css">
-</head>
+    <div class="w3-row">
+        <div class="w3-col w3-margin-top w3-margin-bottom">
+            <div class="w3-col w3-padding-small">
+                <div class="w3-col w3-white w3-round w3-card-2 w3-margin-top">
+                    <h3 class="w3-padding w3-margin-top">Total Users <span id="total_users">0</span></h3>
 
-<body>
-    <div id="sidebar" class="w3-sidebar w3-bar-block w3-card-2 w3-indigo">
-        <div class="w3-padding-small w3-padding">
-            <div class="w3-center logo">
-                <img src="/imgs/logo.png" alt="">
-                <h2 class="w3-text-white">
-                    <%=title%>
-                </h2>
-            </div>
-        </div>
-
-        <a href="/admin" class="w3-bar-item w3-button w3-hover-light-grey">
-            <span class="material-symbols-outlined">space_dashboard</span>
-            <span>Dashboard</span>
-        </a>
-        <a href="/admin/users" class="w3-bar-item w3-button w3-hover-light-grey menu_active">
-            <span class="material-symbols-outlined">group</span>
-            <span>List Users</span>
-        </a>
-        <a href="/admin/users" class="w3-bar-item w3-button w3-hover-light-grey">
-            <span class="material-symbols-outlined">person_add</span>
-            <span>Add User</span>
-        </a>
-        <a href="/admin/users" class="w3-bar-item w3-button w3-hover-light-grey">
-            <span class="material-symbols-outlined">person_remove</span>
-            <span>Remove User</span>
-        </a>
-        <a href="/admin/settings" class="w3-bar-item w3-button w3-hover-light-grey">
-            <span class="material-symbols-outlined">settings</span>
-            <span>Settings</span>
-        </a>
-    </div>
-
-    <div class="container">
-        <div class="w3-white w3-card-2 w3-border-bottom header">
-            <div class="w3-container">
-                <div class="w3-row">
-                    <div class="w3-col w3-padding-small">
-                        <button id="menu" class="w3-indigo w3-margin-left w3-card-2 w3-round">
-                            <span class="material-symbols-outlined">menu</span>
-                        </button>
-
-                        <h3 id="main_logo" class="w3-left w3-margin-top w3-large">
-                            <span id="welcome"></span>
-                        </h3>
-                        <a id="signout" href="#" class="w3-right w3-margin w3-large">
-                            <span class="material-symbols-outlined">logout</span>
-                            <span>Logout</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page Content -->
-        <div class="w3-container w3-padding-16">
-            <div class="w3-row">
-                <h3 class="w3-padding-small w3-margin-top breadcrump"><span>Admin</span> / <span>
-                        <%=page%>
-                    </span>
-                </h3>
-            </div>
-
-            <div class="w3-row">
-                <div class="w3-col w3-margin-top w3-margin-bottom">
-                    <div class="w3-col w3-padding-small">
-                        <div class="w3-col w3-white w3-round w3-card-2 w3-margin-top">
-                            <h3 class="w3-padding">Total Users</h3>
-
-                            <div class="w3-responsive w3-margin-bottom">
-                                <table id="tbl1" class="w3-table w3-bordered not-middle"></table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="w3-col w3-padding-small">
-                        <div class="w3-col w3-white w3-round w3-card-2 w3-margin-top">
-                            <h3 class="w3-padding">Pending Users</h3>
-
-                            <div class="w3-responsive w3-margin-bottom">
-                                <table id="tbl2" class="w3-table w3-bordered not-middle"></table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="w3-col w3-padding-small">
-                        <div class="w3-col w3-white w3-round w3-card-2 w3-margin-top">
-                            <h3 class="w3-padding">Active Users</h3>
-
-                            <div class="w3-responsive w3-margin-bottom">
-                                <table id="tbl1" class="w3-table w3-bordered not-middle"></table>
-                            </div>
-                        </div>
+                    <div class="w3-responsive w3-margin-bottom">
+                        <table id="tbl1" class="w3-table w3-bordered"></table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="w3-container w3-center w3-border-top w3-padding footer">Copyright <span id="cy">2025</span>, All
-        rights reserverd. <a href="https://w3workers.com" target="_search" class="w3-text-indigo">w3workers.com</a>
-    </div>
+    <%- include('footer') %>
 
-    <div class="w3-modal">
-        <div id="message" class="w3-modal-content w3-animate-bottom w3-round w3-card-2 pop" style="max-width: 450px;">
-            <header class="w3-container w3-round  w3-indigo">
-                <h4 class="w3-padding">Message</h4>
+        <script>
+            $(document).ready(function () {
+                function gettotalusers() {
+                    $.get('/getusers', (d) => {
+                        $('#total_users').text(d.length);
 
-                <a href="#" class="w3-button w3-padding-small w3-round-xxlarge tp w3-hover-text-red close">
-                    <span class="w3-left material-symbols-outlined">close</span>
-                </a>
-            </header>
+                        let tbl = $('#tbl1');
+                        tbl.DataTable().destroy();
+                        tbl.empty().append(`<thead>
+                        <th>#</th>
+                        <th>Creation</th>
+                        <th>Full name</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th></th>
+                    </thead><tbody>`)
 
-            <div class="w3-container cbody">
-                <form id="frm1" method="post" action="/generatetrialkey" class="w3-col w3-padding-small w3-padding-16">
-                    <input type="hidden" id="_whatsapp" name="whatsapp">
-                    <div class="w3-col w3-padding-small w3-margin-bottom">
-                        <label for="">USDT Amount</label>
-                        <input name="mint_amount" type="text" class="w3-input w3-round w3-padding w3-border"
-                            placeholder="1" required>
-                    </div>
+                        for (let i = 0; i < d.length; i++) {
+                            var date = moment.utc(d[i].creation),
+                                creation = date.local().format('DD/MM/YY h:mm A');
 
-                    <div class="w3-col w3-padding-small w3-margin-bottom">
-                        <label for="">WhatsApp</label>
-                        <input id="whatsapp" type="text" class="w3-input w3-round w3-padding w3-border w3-white"
-                            disabled placeholder="+91xxxxxxxxxx" required>
-                    </div>
+                            tbl.append(`<tr>
+                                <td>${i + 1}</td>
+                                <td style="min-width:150px;">${creation}</td>
+                                <td style="min-width:175px;">${d[i].fname} ${d[i].lname}</td>
+                                <td>${d[i].mobile}</td>
+                                <td>${d[i].email}</td>
+                                <td id="status${i}" style="text-transform: capitalize;">${d[i].status}</td>
+                                <td style="min-width:100px;">
+                                    <span id="edit_${i}" class="w3-button w3-white w3-border w3-border-green w3-text-green w3-hover-green w3-round material-symbols-outlined">edit</span>
+                                    <span id="remove_${i}" class="w3-button w3-white w3-border w3-border-red w3-text-red w3-hover-red w3-round material-symbols-outlined">close</span>
+                                </td>
+                            </tr>`);
 
-                    <div class="w3-col w3-padding-small w3-margin-bottom w3-center">
-                        <button id="generate_license"
-                            class="w3-button w3-round w3-indigo w3-hover-indigo w3-hover-opacity w3-block">Generate
-                            License</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                            if (d[i].status == 'active') {
+                                $(`#status${i}`).addClass('w3-text-green');
+                            }
+                            else {
+                                $(`#status${i}`).addClass('w3-text-orange');
+                            }
 
-    <div id="spinner">
-        <div class="spin_container">
-            <span class="spinner"></span>
-        </div>
-    </div>
-    <div class="mask"></div>
+                            $(`#edit_${i}`).on('click', function () {
+                                $('#message header h4').text(`Update User Details #${i + 1}`);
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
-    <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
-    <!-- <script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.dataTables.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.html5.min.js"></script> -->
+                                $('.cbody').empty().append(`<form id="frm1" method="post" action="/updateuser" class="w3-col w3-padding-small w3-padding-16">
+                                    <input type="hidden" name="slno" value=${d[i].slno}>
+                                    <div class="w3-col w3-padding-small w3-margin-bottom">
+                                        <label for="">Status</label>
+                                        <select id="status" name="status" class="w3-input w3-round w3-padding w3-border">
+                                            <option value="active">Active</option>
+                                            <option value="pending">Pending</option>
+                                        </select>
+                                    </div>
 
-    <script>
-        $(document).ready(function () {
-            let dt = new Date()
-            let yr = dt.getFullYear()
-            $('#cy').text(yr)
+                                    <div class="w3-col l6 m6 w3-padding-small w3-margin-bottom">
+                                        <label for="">First name</label>
+                                        <input name="fname" type="text" class="w3-input w3-round w3-padding w3-border" placeholder="First name" value="${d[i].fname}" required>
+                                    </div>
+                                    <div class="w3-col l6 m6 w3-padding-small w3-margin-bottom">
+                                        <label for="">Last name</label>
+                                        <input name="lname" type="text" class="w3-input w3-round w3-padding w3-border" placeholder="Last name" value="${d[i].lname}" required>
+                                    </div>
 
-            // $('.w3-modal, #message').show()
+                                    <div class="w3-col w3-padding-small w3-margin-bottom">
+                                        <label for="">Email address</label>
+                                        <input name="email" type="email" class="w3-input w3-round w3-padding w3-border" placeholder="user@w3workers.com" value="${d[i].email}" required>
+                                    </div>
+                                    <div class="w3-col w3-padding-small w3-margin-bottom">
+                                        <label for="">Mobile</label>
+                                        <input name="mobile" type="text" class="w3-input w3-round w3-padding w3-border" placeholder="10 digit mobile number" minlength=10 maxlength=10 value="${d[i].mobile}" required>
+                                    </div>
+                                    
+                                    <div class="w3-col w3-padding-small w3-margin-bottom">
+                                        <label for="">New password</label>
+                                        <input id="new_pass" name="new_pass" type="password" class="w3-input w3-round w3-padding w3-border" placeholder="Minimum 8 digits" minlength="8" maxlength="64">
+                                    </div>
+                                    <div class="w3-col w3-padding-small w3-margin-bottom">
+                                        <label for="">Re-enter password</label>
+                                        <input id="reenter_pass" name="reenter_pass" type="password" class="w3-input w3-round w3-padding w3-border" placeholder="Re-enter password" minlength="8" maxlength="64">
+                                    </div>
 
-            $('#menu').on('click', function () {
-                $('.mask').show()
-                $('#sidebar').css('left', '0')
-            })
-            $('.mask').on('click', function () {
-                $('.mask').hide()
-                $('#sidebar').css('left', '-250px')
-            })
+                                    <div class="w3-col w3-padding-small w3-margin-bottom w3-center">
+                                        <p id="err"></p>
+                                        <button id="update_user" class="w3-button w3-round w3-indigo w3-hover-indigo w3-hover-opacity w3-block">Save Chanes</button>
+                                    </div>
+                                </form>`);
 
-            $('.close').on('click', function (e) {
-                e.preventDefault()
-                $('.w3-modal, #message').hide()
-            })
+                                $('#status').val(d[i].status);
+                                $('.w3-modal, #message').show()
 
-            // $.get('/trialrequests', (d) => {
-            //     let tbl = $('#tbl1');
-            //     tbl.DataTable().destroy();
-            //     tbl.empty().append('<thead><th>#</th><th>WhatsApp</th><th>Status</th><th>Creation</th><td></td></thead><tbody>')
+                                var frm = $('#frm1');
+                                frm.submit(function (e) {
+                                    e.preventDefault();
 
-            //     for (let i = 0; i < d.length; i++) {
-            //         var date = moment.utc(d[i].request_time);
-            //         var formattedDate = date.local().format('DD/MM/YY h:mm A');
+                                    if ($('#new_pass').val() || $('#reenter_pass').val()) {
+                                        if ($('#reenter_pass').val() == $('#new_pass').val()) {
+                                            $('#update_user').attr('disabled', true).text('Please wait...')
 
-            //         tbl.append(`<tr><td>${i + 1}</td><td>${d[i].whatsapp}</td><td style="text-transform:capitalize;">${d[i].status}</td><td style="min-width:175px;">${formattedDate}</td><td><button id="gen_lic${i}" class="w3-button w3-indigo w3-round">Generate License</button></td></tr>`)
+                                            $.ajax({
+                                                type: frm.attr('method'),
+                                                url: frm.attr('action'),
+                                                data: frm.serialize()
+                                            }).done(function (data) {
+                                                $('#update_user').attr('disabled', false).text('Save Changes')
 
-            //         $(`#gen_lic${i}`).on('click', function () {
-            //             $('#whatsapp, #_whatsapp').val(d[i].whatsapp)
-            //             $('.w3-modal, .pop').show()
-            //         })
-            //     }
-            //     tbl.append('</tbody>')
+                                                if (data > 0) {
+                                                    $('#message header h4').text('Message')
+                                                    gettotalusers()
 
-            //     tbl.DataTable({
-            //         "bPaginate": true,
-            //         "bLengthChange": false,
-            //         "bInfo": false,
-            //         "bAutoWidth": false,
-            //         "ordering": false,
-            //         "dom": 'Bfrtip',
-            //         "bFilter": false,
-            //         // "language": {
-            //         //     "search": "",
-            //         //     "searchPlaceholder": "Search records"
-            //         // },                    
-            //         // "buttons": [
-            //         //     {
-            //         //         "title": 'Books by case',
-            //         //         "extend": 'csv',
-            //         //         "text": 'Export CSV',
-            //         //         "className": 'w3w-button w3w-deep-orange w3w-round w3w-right w3w-margin-top w3w-margin-right',
-            //         //     }
-            //         // ]
-            //     });
-            // })
+                                                    $('.cbody').empty().append(`<div class="w3-col w3-padding-16">
+                                                    <div class="w3-col w3-padding"><h5>User details updated successfully.</h5></div>
+                                                </div>`)
+                                                }
+                                                else {
+                                                    $('#err').text('Oops, email address already in use!').addClass('w3-text-deep-orange w3-margin-bottom')
+                                                }
+                                            })
+                                        }
+                                        else {
+                                            $('#err').text('Oops, passwords do not match!').addClass('w3-text-deep-orange w3-margin-bottom')
+                                        }
+                                    }
+                                    else {
+                                        $('#update_user').attr('disabled', true).text('Please wait...')
 
-            $('#spinner').hide()
+                                        $.ajax({
+                                            type: frm.attr('method'),
+                                            url: frm.attr('action'),
+                                            data: frm.serialize()
+                                        }).done(function (data) {
+                                            $('#update_user').attr('disabled', false).text('Save Changes')
 
-            var frm1 = $('#frm1');
-            frm1.submit(function (e) {
-                e.preventDefault();
-                $('#generate_license').attr('disabled', true).text('Wait...')
+                                            if (data > 0) {
+                                                $('#message header h4').text('Message')
+                                                gettotalusers()
+                                                $('.cbody').empty().append(`<div class="w3-col w3-padding-16">
+                                                <div class="w3-col w3-padding"><h5>User details updated successfully</h5></div>
+                                            </div>`)
+                                            }
+                                            else {
+                                                $('#err').text('Oops, email address already in use!').addClass('w3-text-deep-orange w3-margin-bottom')
+                                            }
+                                        })
+                                    }
+                                });
+                            })
 
-                $.ajax({
-                    type: frm1.attr('method'),
-                    url: frm1.attr('action'),
-                    data: frm1.serialize()
-                }).done(function (data) {
-                    $('#generate_license').attr('disabled', false).text('Generate License')
-                    $('.pop .cbody').empty().append(`
-                    <div class="w3-col w3-padding-small w3-margin-bottom">
-                        <h3>Success!</h3>
-                        <p>License Key: ${data.licence_key}</p>
-                    </div>`)
-                })
+                            $(`#remove_${i}`).on('click', function () {
+                                $('#message header h4').text(`Message`);
+                                $('.cbody').empty().append(`<div class="w3-col w3-padding-16">
+                                    <div class="w3-col w3-padding">
+                                        <h5>Are you sure you want to remove user #${i + 1}?</h5>
+
+                                        <div class="w3-col w3-margin-top w3-center">
+                                            <button id="remove_user" class="w3-button w3-round w3-red w3-hover-red w3-hover-opacity">Yes confirm</button>
+                                        </div>
+                                    </div>
+                                </div>`)
+
+                                $('.w3-modal, #message').show()
+
+                                $('#remove_user').on('click', function () {
+                                    $('#remove_user').attr('disabled', true).text('Please wait...')
+                                    $.get('/removeuser', { slno: d[i].slno }, (d1) => {
+                                        gettotalusers()
+                                        $('.cbody').empty().append(`<div class="w3-col w3-padding-16">
+                                            <div class="w3-col w3-padding"><h5>User #${i + 1} removed successfully.</h5></div>
+                                        </div>`)
+                                    })
+                                })
+                            })
+                        }
+                        tbl.append('</tbody>')
+                        tbl.DataTable({
+                            "bPaginate": true,
+                            "bLengthChange": false,
+                            "bInfo": false,
+                            "bAutoWidth": false,
+                            "ordering": false,
+                            "dom": 'Bfrtip',
+                            "bFilter": true,
+                            "language": {
+                                "search": "",
+                                "searchPlaceholder": "Search user..."
+                            },
+                        });
+                        $('.dt-buttons').remove()
+                        $('.dt-search').addClass('w3-padding')
+                        $('.dt-search input').addClass('w3-input w3-round w3-padding w3-border')
+
+                        $('#spinner').hide()
+                    })
+                }
+                gettotalusers();
             });
-
-            $('#signout').on('click', function (e) {
-                e.preventDefault()
-                $.get('/logout', (d) => {
-                    window.location.reload()
-                })
-            })
-        });
-    </script>
-
-</body>
-
-</html>
+        </script>

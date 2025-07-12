@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../../imgs/logo.png">
+    <title>
+        <%=title%>
+    </title>
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/dash.css">
+</head>
+
+<body>
+    <div id="sidebar" class="w3-sidebar w3-bar-block w3-card-2 w3-indigo">
+        <div class="w3-padding-small w3-padding">
+            <div class="w3-center logo">
+                <img src="/imgs/logo.png" alt="">
+                <h2 class="w3-text-white logo-txt">
+                    <%=title%>
+                </h2>
+            </div>
+        </div>
+
+        <a href="/admin" class="w3-bar-item w3-button w3-hover-light-grey">
+            <span class="material-symbols-outlined">space_dashboard</span>
+            <span>Dashboard</span>
+        </a>
+        <a href="/admin/users" class="w3-bar-item w3-button w3-hover-light-grey">
+            <span class="material-symbols-outlined">group</span>
+            <span>List Users</span>
+        </a>
+        <a href="/admin/add-user" class="w3-bar-item w3-button w3-hover-light-grey">
+            <span class="material-symbols-outlined">person_add</span>
+            <span>Add User</span>
+        </a>
+        <a href="/admin/settings" class="w3-bar-item w3-button w3-hover-light-grey">
+            <span class="material-symbols-outlined">settings</span>
+            <span>Settings</span>
+        </a>
+        <a href="/admin/logs" class="w3-bar-item w3-button w3-hover-light-grey">
+            <span class="material-symbols-outlined">history</span>
+            <span>Log History</span>
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="w3-white w3-card-2 w3-border-bottom header">
+            <div class="w3-container">
+                <div class="w3-row">
+                    <div class="w3-col w3-padding-small">
+                        <button id="menu" class="w3-indigo w3-margin-left w3-card-2 w3-round">
+                            <span class="material-symbols-outlined">menu</span>
+                        </button>
+
+                        <h3 id="main_logo" class="w3-left w3-margin-top w3-large">
+                            <span id="welcome">Welcome <%=fname%></span>
+                        </h3>
+                        <a id="signout" href="#" class="w3-right w3-margin w3-large">
+                            <span class="material-symbols-outlined">logout</span>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div class="w3-container w3-padding-16">
+            <div class="w3-row">
+                <h3 class="w3-padding-small w3-margin-top breadcrump"><span>Admin</span> / <span>
+                        <%=page%>
+                    </span>
+                </h3>
+            </div>

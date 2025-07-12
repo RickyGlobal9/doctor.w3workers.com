@@ -1,0 +1,91 @@
+<%- include('header') %>
+
+    <div class="w3-row">
+        <div class="w3-col w3-margin-top w3-margin-bottom">
+            <div class="w3-col w3-padding-small">
+                <div class="w3-col w3-white w3-round w3-card-2 w3-margin-top">
+                    <div class="w3-col l8 m8 s6">
+                        <h3 class="w3-padding w3-margin-top">Log History</h3>
+                    </div>
+                    <div id="mybutton" class="w3-col l4 m4 s6"></div>
+
+                    <div class="w3-responsive w3-margin-bottom w3-block">
+                        <table id="tbl1" class="w3-table w3-bordered not-middle"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('footer') %>
+
+        <script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.js"></script>
+        <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.dataTables.js"></script>
+        <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.html5.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                function getlogs() {
+                    $.get('/getlogs', (d) => {
+                        $('#total_users').text(d.length);
+
+                        let tbl = $('#tbl1');
+                        tbl.DataTable().destroy();
+                        tbl.empty().append(`<thead>
+                            <th>#</th>
+                            <th>Creation</th>
+                            <th>Event Type</th>
+                            <th>Status</th>
+                        </thead><tbody>`)
+
+                        for (let i = 0; i < d.length; i++) {
+                            var date = moment.utc(d[i].timestamp)
+                            var creation = date.local().format('DD/MM/YY h:mm A');
+
+                            tbl.append(`<tr>
+                                <td>${i + 1}</td>
+                                <td style="min-width:150px;">${creation}</td>
+                                <td class="capitalize-first" style="min-width:200px">${d[i].event}</td>
+                                <td id="status${i}" style="text-transform: capitalize;">${d[i].status}</td>
+                            </tr>`);
+
+                            if (d[i].status == 'success') {
+                                $(`#status${i}`).addClass('w3-text-green');
+                            }
+                            else {
+                                $(`#status${i}`).addClass('w3-text-orange');
+                            }
+                        }
+                        tbl.append('</tbody>')
+                        tbl.DataTable({
+                            "bPaginate": true,
+                            "bLengthChange": false,
+                            "bInfo": false,
+                            "bAutoWidth": false,
+                            "ordering": false,
+                            "dom": 'Bfrtip',
+                            "bFilter": true,
+                            "pageLength": 20,
+                            "language": {
+                                "search": "",
+                                "searchPlaceholder": "Search log..."
+                            },
+                            "buttons": [
+                                {
+                                    "title": 'Log History',
+                                    "extend": 'csv',
+                                    "text": 'Export Logs',
+                                    "className": 'w3-button w3-green w3-hover-green w3-hover-opacity w3-round w3-right export-btn',
+                                }
+                            ]
+                        });
+                        $('.dt-search').addClass('w3-padding')
+                        $('.dt-search input').addClass('w3-input w3-round w3-padding w3-border')
+                        $('#tbl1_wrapper .dt-buttons').appendTo('#mybutton');
+
+                        $('#spinner').hide()
+                    })
+                }
+                getlogs();
+            });
+        </script>

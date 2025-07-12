@@ -1,16 +1,222 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../../imgs/logo.png">
     <title>
         <%=title%>
     </title>
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/dash.css">
 </head>
 
 <body>
+    <div class="w3-container">
+        <div class="w3-row" style="display: flex; align-items: center;">
+            <form id="frm1" action="/userlogin" method="post" class="w3-col"
+                style="max-width: 450px; margin: 50px auto auto;">
+                <div class="w3-center w3-margin-bottom logo">
+                    <img src="/imgs/logo.png" alt="">
+                    <h3 class="w3-padding logo-txt">Admin Panel v1</h3>
+                </div>
 
+                <div class="w3-col w3-padding-16 w3-padding w3-card-2 w3-round w3-white w3-margin-top">
+                    <div class="w3-col w3-padding w3-margin-top">
+                        <label for="">User Email</label>
+                        <input type="email" name="email" placeholder="user@w3workers.com"
+                            class="w3-input w3-round w3-border" required>
+                    </div>
+                    <div class="w3-col w3-padding">
+                        <label for="">User Password</label>
+                        <input type="password" name="password" placeholder="Password"
+                            class="w3-input w3-round w3-border" required>
+
+                        <p class="w3-margin-top"><a id="forgot_pass" href="#" class="w3-text- w3-right">Forgot
+                                password?</a></p>
+                    </div>
+                    <div class="w3-col w3-padding w3-center w3-margin-bottom">
+                        <button id="sign_btn"
+                            class="w3-button w3-round w3-deep-orange w3-hover-deep-orange w3-hover-opacity w3-margin-bottom w3-block">Login
+                            now</button>
+
+                        <p class="w3-text-grey" style="text-align: left;">By clicking on login button below you agree
+                            our <a href="#" class="w3-text-orange">terms of use</a> and our <a href="#"
+                                class="w3-text-orange">privacy policy</a> as well.</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="w3-modal">
+        <div id="message" class="w3-modal-content w3-animate-bottom w3-round w3-card-2 pop" style="max-width: 400px;">
+            <header class="w3-container w3-round">
+                <h4 class="w3-padding">Message</h4>
+
+                <a href="#"
+                    class="w3-button w3-padding-small w3-round-xxlarge w3-red w3-hover-red w3-hover-opacity close">
+                    <span class="w3-left material-symbols-outlined">close</span>
+                </a>
+            </header>
+
+            <div class="w3-container cbody"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.close').on('click', function (e) {
+                e.preventDefault()
+                $('.w3-modal, #message').hide()
+            })
+
+            var frm = $('#frm1');
+            frm.submit(function (e) {
+                e.preventDefault();
+                $('#sign_btn').attr('disabled', true).text('Validating...')
+
+                $.ajax({
+                    type: frm.attr('method'),
+                    url: frm.attr('action'),
+                    data: frm.serialize()
+                }).done(function (data) {
+                    if (data > 0) {
+                        window.location.reload()
+                    }
+                    else {
+                        $('#sign_btn').attr('disabled', false).text('Signin')
+                        $('.cbody').empty().append(`<div class="w3-col w3-padding-16">
+                            <div class="w3-col w3-padding"><h5>Oops, wrong credentials!</h5></div>
+                        </div>`)
+                        $('.w3-modal, .pop').show()
+                    }
+                })
+            });
+
+            $('#forgot_pass').on('click', function (e) {
+                e.preventDefault();
+
+                $('.cbody').empty().append(`<div class="w3-col w3-padding-16">
+                    <form id="frm2" method="post" action="/sendcode" class="w3-col w3-padding">
+                        <h6 class="w3-text-grey">Lost password?<br>Don't worry, let's recreate it now!</h6>
+
+                        <div class="w3-col w3-margin-top">
+                            <label for="">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="user@w3workers.com" class="w3-input w3-round w3-border" required>
+                        </div>
+                        <div class="w3-col w3-center w3-margin-top">
+                            <button id="send_code" class="w3-button w3-round w3-deep-orange w3-hover-deep-orange w3-hover-opacity">Send Code</button>
+                        </div>
+                    </form>
+                </div>`)
+                $('.w3-modal, .pop').show()
+
+                var frm = $('#frm2');
+                frm.submit(function (e) {
+                    e.preventDefault();
+                    $('#send_code').attr('disabled', true).text('Validating...')
+
+                    $.ajax({
+                        type: frm.attr('method'),
+                        url: frm.attr('action'),
+                        data: frm.serialize()
+                    }).done(function (data) {
+                        if (data.success == true) {
+                            $('.cbody').empty().append(`<div class="w3-col w3-padding-16">
+                                <form id="frm3" method="post" action="/verifycode" class="w3-col w3-padding">
+                                    <input type="hidden" name="ssid" value="${data.sessionId}">
+                                    <h6 class="w3-text-grey">Please provide the code sent to your registered WhatsApp number...</h6>
+
+                                    <div class="w3-col w3-margin-top">
+                                        <label for="">Verification Code</label>
+                                        <input type="text" id="vcode" name="vcode" placeholder="6 digit verification code" class="w3-input w3-round w3-border" minlength="6" maxlength="6" required>
+                                    </div>
+                                    <div class="w3-col w3-center w3-margin-top">
+                                        <p id="verr" class="w3-text-deep-orange"></p>
+                                        <button id="verify_code" class="w3-button w3-round w3-deep-orange w3-hover-deep-orange w3-hover-opacity">Verify</button>
+                                    </div>
+                                </form>
+                            </div>`)
+                            $('.w3-modal, .pop').show()
+                            $('#vcode').focus()
+
+                            var frm = $('#frm3');
+                            frm.submit(function (e) {
+                                e.preventDefault();
+                                $('#verify_code').attr('disabled', true).text('Validating...')
+
+                                $.ajax({
+                                    type: frm.attr('method'),
+                                    url: frm.attr('action'),
+                                    data: frm.serialize()
+                                }).done(function (d1) {
+                                    if (d1 == 0) {
+                                        $('#verify_code').attr('disabled', false).text('Verify')
+                                        $('#verr').text('Opps, wrong verification code or session expired!').addClass('w3-margin-bottom')
+                                    }
+                                    else {
+                                        $('.cbody').empty().append(`<div class="w3-col w3-padding-16">
+                                            <form id="frm4" method="post" action="/createpassword" class="w3-col w3-padding">
+                                                <input type="hidden" name="mobile" value="${d1}">
+                                                <h6 class="w3-text-grey">Now let's create a new password...</h6>
+
+                                                <div class="w3-col w3-margin-top">
+                                                        <label for="">New password</label>
+                                                        <input id="new_pass" name="new_pass" type="password" class="w3-input w3-round w3-padding w3-border" placeholder="Minimum 8 digits" minlength="8" maxlength="64">
+                                                    </div>
+                                                    <div class="w3-col w3-margin-top">
+                                                        <label for="">Re-enter password</label>
+                                                        <input id="reenter_pass" name="reenter_pass" type="password" class="w3-input w3-round w3-padding w3-border" placeholder="Re-enter password" minlength="8" maxlength="64">
+                                                    </div>
+                                                <div class="w3-col w3-center w3-margin-top">
+                                                    <p id="perr" class="w3-text-deep-orange"></p>
+                                                    <button id="create_pass" class="w3-button w3-round w3-deep-orange w3-hover-deep-orange w3-hover-opacity">Create password</button>
+                                                </div>
+                                            </form>
+                                        </div>`)
+
+                                        var frm = $('#frm4');
+                                        frm.submit(function (e) {
+                                            e.preventDefault();
+
+                                            if ($('#new_pass').val() == $('#reenter_pass').val()) {
+                                                $('#create_pass').attr('disabled', true).text('Please wait...')
+                                                $.ajax({
+                                                    type: frm.attr('method'),
+                                                    url: frm.attr('action'),
+                                                    data: frm.serialize()
+                                                }).done(function (data) {
+                                                    if (data > 0) {
+                                                        $('.cbody').empty().append(`<div class="w3-col w3-padding-16">
+                                                            <div class="w3-col w3-padding"><h5>Great, new password created successfully. Now signin with your new password.</h5></div>
+                                                        </div>`)
+                                                        $('.w3-modal, .pop').show()
+                                                    }
+                                                    else {
+                                                        $('#create_pass').attr('disabled', false).text('Create password')
+                                                        $('#perr').text("Oops, something went wrong, try again later!").addClass('w3-margin-bottom');
+                                                    }
+                                                })
+                                            }
+                                            else {
+                                                $('#create_pass').attr('disabled', false).text('Create password')
+                                                $('#perr').text("Oops, your password didn't matched!").addClass('w3-margin-bottom');
+                                            }
+                                        });
+                                    }
+                                })
+                            });
+                        }
+                        else {
+                            $('.cbody').empty().append(`<div class="w3-col w3-padding-16">
+                                <div class="w3-col w3-padding"><h5>Oops, mobile number not registered!</h5></div>
+                            </div>`)
+                        }
+                    })
+                });
+            })
+        })
+    </script>
 </body>
 
 </html>

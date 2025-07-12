@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
 
 .material-symbols-outlined {
     font-weight: 400;
     font-variation-settings: "FILL" 0, "GRAD" 0, "opsz" 100;
+}
+
+.logo-txt {
+    font-family: "Comfortaa", sans-serif;
 }
 
 .dt-paging {
@@ -14,15 +19,23 @@
 .dt-paging button {
     margin: 2px;
     border: none;
-    padding: 8px 16px;
+    padding: 0 8px;
     border-radius: 5px;
-    background-color: #3f51b5;
-    color: #fff;
+    background-color: #fff;
+    border: solid 2px #3f51b5;
+    color: #3f51b5;
+    font-size: 20px;
     cursor: pointer;
 }
 
 .dt-paging button:hover {
-    opacity: 0.60;
+    background-color: #3f51b5;
+    color: #fff;
+}
+
+.dt-search input {
+    font-size: 16px;
+    background-color: #fff !important;
 }
 
 body {
@@ -93,8 +106,13 @@ ul {
     max-height: 50px;
 }
 
+#sidebar .logo img {
+    max-height: 40px;
+    margin: 10px 0;
+}
+
 .logo h2 {
-    font-size: 1.6rem;
+    font-size: 1.35rem;
     font-weight: 700;
 }
 
@@ -151,9 +169,14 @@ ul {
 }
 
 .w3-button {
-    transition: 0.05s;
     padding-left: 26px;
     padding-right: 26px;
+}
+
+a,
+.dt-paging-button,
+.w3-button {
+    transition: all 0.25s !important;
 }
 
 .tp {
@@ -209,8 +232,18 @@ label {
     vertical-align: middle;
 }
 
+.not-middle td {
+    vertical-align: top !important;
+}
+
 .w3-table td:last-child {
     padding-right: 18px
+}
+
+.w3-table td:last-child .w3-button {
+    padding: 2px 2px 0 !important;
+    border-width: 2px !important;
+    font-size: 22px !important;
 }
 
 .w3-table thead tr {
@@ -239,7 +272,7 @@ label {
 
 .w3-sidebar {
     width: 230px;
-    transition: 0.15s;
+    transition: 0.5s;
 }
 
 .w3-sidebar h3 {
@@ -385,4 +418,29 @@ label {
     .login-pane {
         width: 368px;
     }
+
+    .dt-search input {
+        border: solid 2px #3f51b5 !important;
+        color: #3f51b5;
+    }
+}
+
+.capitalize-first {
+    display: inline-block;
+    /* Ensures ::first-letter works */
+}
+
+.capitalize-first::first-letter {
+    text-transform: uppercase;
+}
+
+.export-btn {
+    margin: 20px 16px 0 0;
+    min-height: auto !important;
+    padding: 6px 10px !important;
+}
+
+#message header {
+    background-color: #fbfbfb;
+    border-bottom: solid 1px #e1e1e1;
 }
