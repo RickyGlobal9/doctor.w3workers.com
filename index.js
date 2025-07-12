@@ -8,7 +8,7 @@ const
     axios = require('axios');
 
 const app = express(),
-    PORT = 3000,
+    PORT = 2003,
     app_version = 1.0,
     ROUNDS = 10,
     SALT = bcrypt.genSaltSync(ROUNDS);
