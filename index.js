@@ -439,18 +439,21 @@ app.post('/sendcode', async (req, res) => {
             let config = {
                 method: 'post',
                 maxBodyLength: Infinity,
-                url: 'http://sms.w3workers.com/generateotp',
+                url: 'https://sms.w3workers.com/generateotp',
                 headers: {
                     'Content-Type': 'application/json',
                     'x-api-key': 'CNsi3TKdQb6HNJShSOeSLifqeDlx'
                 },
                 data: data
             };
+            console.log(data)
 
             axios.request(config).then((response) => {
                 res.json(response.data)
+                console.log('response', response.data)
             }).catch((error) => {
                 res.json(error.response.data);
+                console.log('error', error.response.data)
             });
         }
         else {
