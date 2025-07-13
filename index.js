@@ -8,7 +8,7 @@ const
     axios = require('axios');
 
 const app = express(),
-    PORT = 3000,
+    PORT = 2003,
     app_version = 1.0,
     ROUNDS = 10,
     SALT = bcrypt.genSaltSync(ROUNDS);
@@ -433,12 +433,13 @@ app.post('/sendcode', async (req, res) => {
         if (user.email) {
             let data = JSON.stringify({
                 "phone": `+91${user.mobile}`,
+                "host": req.hostname
             });
 
             let config = {
                 method: 'post',
                 maxBodyLength: Infinity,
-                url: 'https://sms.w3workers.com/generateotp',
+                url: 'http://sms.w3workers.com/generateotp',
                 headers: {
                     'Content-Type': 'application/json',
                     'x-api-key': 'CNsi3TKdQb6HNJShSOeSLifqeDlx'
